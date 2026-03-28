@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nadi Line Photography in Phuket</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Josefin+Sans:wght@100;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #e8dcc8;
+    --deep: #1a1612;
+    --warm: #c4955a;
+    --mist: #7a8c8a;
+    --cream: #f5f0e8;
+    --dark-warm: #2d2420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--sand);
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--warm);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(196,149,90,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* Hero */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(196,149,90,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(122,140,138,0.06) 0%, transparent 50%);
+  }
+
+  .hero-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--warm));
+    margin: 0 auto 40px;
+    animation: lineGrow 1.5s ease forwards;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+
+  @keyframes lineGrow {
+    to { transform: scaleY(1); }
+  }
+
+  .hero-subtitle {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--warm);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 8vw, 100px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--mist);
+  }
+
+  .hero-location {
+    font-size: 11px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.8s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--warm), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: normal;
+  }
+
+  .nav-logo {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--sand);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--warm); }
+
+  /* Section styles */
+  section { padding: 120px 48px; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 16px;
+  }
+
+  /* Gallery */
+  #gallery {
+    background: var(--dark-warm);
+    padding: 120px 48px;
+  }
+
+  .gallery-header {
+    max-width: 600px;
+    margin-bottom: 80px;
+  }
+
+  .gallery-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .gallery-title em { font-style: italic; color: var(--mist); }
+
+  .gallery-desc {
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: var(--mist);
+    max-width: 400px;
+  }
+
+  /* Masonry grid */
+  .gallery-grid {
+    columns: 3;
+    column-gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-grid { columns: 1; }
+    nav { padding: 20px 24px; }
+    .nav-links { gap: 20px; }
+    section { padding: 80px 24px; }
+    #gallery { padding: 80px 24px; }
+  }
+
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,22,18,0.7) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .gallery-item:hover::after { opacity: 1; }
+
+  .gallery-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.6s ease;
+    filter: brightness(0.9) contrast(1.05);
+  }
+
+  .gallery-item:hover img { transform: scale(1.04); }
+
+  .photo-placeholder {
+    background: linear-gradient(135deg, #2a2420 0%, #3d3530 50%, #2a2420 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(135deg, transparent 40%, rgba(196,149,90,0.05) 50%, transparent 60%);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+  }
+
+  .placeholder-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 1;
+  }
+
+  .placeholder-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--warm);
+    opacity: 0.4;
+  }
+
+  .placeholder-icon span {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    opacity: 0.4;
+  }
+
+  /* How to add photos instruction */
+  .instruction-box {
+    border: 1px solid rgba(196,149,90,0.2);
+    padding: 32px;
+    margin-bottom: 60px;
+    background: rgba(196,149,90,0.03);
+  }
+
+  .instruction-box h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 16px;
+  }
+
+  .instruction-box p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: var(--mist);
+    margin-bottom: 8px;
+  }
+
+  .instruction-box code {
+    background: rgba(196,149,90,0.1);
+    padding: 2px 8px;
+    font-size: 11px;
+    color: var(--warm);
+    font-family: monospace;
+  }
+
+  /* About */
+  #about {
+    background: var(--deep);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    #about { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .about-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+
+  .about-text h2 em { font-style: italic; color: var(--mist); }
+
+  .about-text p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 2.2;
+    color: var(--mist);
+    margin-bottom: 20px;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 500px;
+  }
+
+  .about-box {
+    position: absolute;
+    border: 1px solid rgba(196,149,90,0.2);
+  }
+
+  .about-box-1 {
+    top: 0; left: 0; right: 40px; bottom: 40px;
+    background: linear-gradient(135deg, #2d2420, #3d3530);
+  }
+
+  .about-box-2 {
+    bottom: 0; right: 0;
+    width: 120px; height: 120px;
+    background: rgba(196,149,90,0.08);
+    border-color: var(--warm);
+  }
+
+  .about-number {
+    position: absolute;
+    bottom: 50px; right: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: rgba(196,149,90,0.12);
+    line-height: 1;
+  }
+
+  /* Contact */
+  #contact {
+    background: var(--dark-warm);
+    text-align: center;
+  }
+
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 48px;
+  }
+
+  .contact-title em { font-style: italic; color: var(--mist); }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--mist);
+    transition: color 0.3s ease;
+  }
+
+  .contact-link:hover { color: var(--warm); }
+
+  .contact-link-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .contact-link-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  /* Divider line */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--warm);
+    margin: 0 auto 60px;
+    opacity: 0.4;
+  }
+
+  /* Footer */
+  footer {
+    padding: 32px 48px;
+    background: var(--deep);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(196,149,90,0.1);
+  }
+
+  footer p {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(122,140,138,0.5);
+  }
+
+  /* Hover effects */
+  a:hover ~ .cursor-ring { transform: translate(-50%, -50%) scale(2); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#" class="nav-logo">Nadi Line</a>
+  <ul class="nav-links">
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-line"></div>
+  <p class="hero-subtitle">Photography Portfolio</p>
+  <h1 class="hero-title">Nadi Line<br><em>Photography</em></h1>
+  <p class="hero-location">Phuket · Thailand</p>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- Gallery -->
+<section id="gallery">
+  <div class="gallery-header">
+    <p class="section-label">Portfolio</p>
+    <h2 class="gallery-title">Through the<br><em>Lens of Nature</em></h2>
+    <p class="gallery-desc">Capturing the beauty of nature through the lens — from golden sunsets to misty mornings in Phuket.</p>
+  </div>
+
+  <!-- Instruction box - ဖျက်ချင်ရင် ဖျက်လို့ ရတယ် -->
+  <div class="instruction-box">
+    <h3>📸 How to Add Your Photos</h3>
+    <p>Replace the placeholders with your own photo paths —</p>
+    <p>Change <code>src="placeholder"</code> to <code>src="your-photo.jpg"</code></p>
+    <p>To add more photos, copy a <code>.gallery-item</code> block and paste it inside the grid</p>
+  </div>
+
+  <div class="gallery-grid">
+
+    <!-- Photo 1 -->
+    <div class="gallery-item">
+      <img src="img_1812.jpg" alt="Nature Photography by Nadi Line">
+    </div>
+
+    <!-- Photo 2 -->
+    <div class="gallery-item">
+      <img src="img_1809.jpg" alt="Nature Photography by Nadi Line">
+    </div>
+
+    <!-- Photo 3 -->
+    <div class="gallery-item">
+      <img src="img_1808.jpg" alt="Nature Photography by Nadi Line">
+    </div>
+
+    <!-- Photo 4 -->
+    <div class="gallery-item">
+      <img src="img_1807.jpg" alt="Nature Photography by Nadi Line">
+    </div>
+
+    <!-- Photo 5 -->
+    <div class="gallery-item">
+      <img src="dhsl8894.jpg" alt="Nature Photography by Nadi Line">
+    </div>
+
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="about-text">
+    <p class="section-label">About</p>
+    <h2>Behind the<br><em>Camera</em></h2>
+    <p>The natural beauty of Phuket — the sea, the mountains, golden sunsets, and misty mornings — all preserved through the lens of Nadi Line Photography.</p>
+    <p>I believe a photograph is a form of art that can capture a corner of the world and keep it forever.</p>
+    <p style="color: var(--warm); font-size: 11px; letter-spacing: 2px; margin-top: 8px;">— Nadi Line Photography</p>
+  </div>
+  <div class="about-visual">
+    <div class="about-box about-box-1"></div>
+    <div class="about-box about-box-2"></div>
+    <div class="about-number">07</div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="divider"></div>
+  <p class="section-label">Get in Touch</p>
+  <h2 class="contact-title">Let's <em>Connect</em></h2>
+  <div class="contact-links">
+    <a href="/cdn-cgi/l/email-protection#0f76607a7d4f6a626e6663216c6062" class="contact-link">
+      <span class="contact-link-label">Email</span>
+      <span class="contact-link-value"><span class="__cf_email__" data-cfemail="9fe6f0eaeddffaf2fef6f3b1fcf0f2">[email&#160;protected]</span></span>
+    </a>
+    <a href="https://instagram.com/yourhandle" class="contact-link" target="_blank">
+      <span class="contact-link-label">Instagram</span>
+      <span class="contact-link-value">@nadiline.photo</span>
+    </a>
+    <a href="#" class="contact-link">
+      <span class="contact-link-label">Location</span>
+      <span class="contact-link-value">Phuket, Thailand</span>
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 Nadi Line Photography</p>
+  <p>Phuket · Thailand</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover effects
+  document.querySelectorAll('a, .gallery-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.transform = 'translate(-50%, -50%) scale(2)';
+      ring.style.borderColor = 'rgba(196,149,90,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.transform = 'translate(-50%, -50%) scale(1)';
+      ring.style.borderColor = 'rgba(196,149,90,0.5)';
+    });
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.gallery-item, .about-text,
