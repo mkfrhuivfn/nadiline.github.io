@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Nadi Line Photography</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <a href="index.html">NADI LINE</a>
+      <span class="nav-sub">Photography</span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-tag">Say Hello</span>
+      <h1>Contact Me</h1>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container contact-grid">
+
+      <!-- LEFT: Info -->
+      <div class="contact-info">
+        <h2>Let's <em>Connect</em></h2>
+        <p>Whether you have a question, want to collaborate, or simply love photography — I'd love to hear from you.</p>
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <span class="ci-label">📍 Location</span>
+            <span class="ci-value">Phuket, Thailand</span>
+          </div>
+          <div class="contact-item">
+            <span class="ci-label">📧 Email</span>
+            <!-- Replace with your actual email -->
+            <span class="ci-value">hello@nadilinephoto.com</span>
+          </div>
+          <div class="contact-item">
+            <span class="ci-label">📸 Instagram</span>
+            <span class="ci-value">@nadilinephotography</span>
+          </div>
+        </div>
+
+        <div class="contact-note">
+          <p>I respond to all messages within 1–2 days.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="contact-form-wrap">
+        <div class="form-success" id="formSuccess">
+          <span>✓</span>
+          <p>Thank you! Your message has been sent.</p>
+        </div>
+        <div class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="e.g. Aung Aung" required/>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required/>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="What's this about?"/>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button class="btn-solid" id="submitBtn" onclick="handleFormSubmit(event)">Send Message</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-logo">NADI LINE Photography</p>
+      <p class="footer-location">Phuket, Thailand</p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2026 Nadi Line Photography. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

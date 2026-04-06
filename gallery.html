@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery | Nadi Line Photography</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <a href="index.html">NADI LINE</a>
+      <span class="nav-sub">Photography</span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-tag">My Work</span>
+      <h1>Photo Gallery</h1>
+    </div>
+  </section>
+
+  <!-- FILTER BUTTONS -->
+  <section class="gallery-controls">
+    <div class="container">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="coast">Coastline</button>
+        <button class="filter-btn" data-filter="nature">Nature</button>
+        <button class="filter-btn" data-filter="wildlife">Wildlife</button>
+        <button class="filter-btn" data-filter="golden">Golden Hour</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY GRID -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery-grid" id="galleryGrid">
+
+        <!-- ── Add your own photos below ── -->
+        <!-- Format: data-category="coast" or "nature" or "wildlife" or "golden" -->
+
+        <div class="gallery-item" data-category="coast">
+          <img src="images/gallery/photo1.jpg" alt="Phuket Coastline" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Phuket Coastline</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="nature">
+          <img src="images/gallery/photo2.jpg" alt="Forest Light" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Forest Light</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="golden">
+          <img src="images/gallery/photo3.jpg" alt="Morning Mist" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Morning Mist</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="wildlife">
+          <img src="images/gallery/photo4.jpg" alt="Wildlife" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Wildlife</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="coast">
+          <img src="images/gallery/photo5.jpg" alt="Sea Horizon" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Sea Horizon</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="nature">
+          <img src="images/gallery/photo6.jpg" alt="Tropical Leaves" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Tropical Leaves</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="golden">
+          <img src="images/gallery/photo7.jpg" alt="Sunset Glow" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Sunset Glow</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="wildlife">
+          <img src="images/gallery/photo8.jpg" alt="Bird in Flight" loading="lazy"/>
+          <div class="gallery-overlay">
+            <span>Bird in Flight</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose">✕</button>
+    <button class="lb-prev" id="lbPrev">‹</button>
+    <button class="lb-next" id="lbNext">›</button>
+    <div class="lb-img-wrap">
+      <img id="lbImg" src="" alt=""/>
+      <p id="lbCaption"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-logo">NADI LINE Photography</p>
+      <p class="footer-location">Phuket, Thailand</p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2026 Nadi Line Photography. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
